@@ -1,15 +1,12 @@
 import { Col, Row, Container, Spinner, Nav } from 'react-bootstrap';
 import { getAuth } from 'firebase/auth';
 import { AuthContext } from '../components/AuthProvider';
-//import { jwtDecode } from 'jwt-decode';
-//import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useContext, useEffect } from 'react';
-//import useLocalStorage from 'use-local-storage';
-//import { fetchBookingsByUser } from '../feature/posts/bookingsSlice';
 import BookingCardLayout from '../components/BookingCardLayout';
 import { fetchBookingsByUser } from '../feature/posts/bookingsSlice';
+import UserProfile from '../components/UserProfile';
 
 export default function Bookings() {
 
@@ -17,7 +14,8 @@ export default function Bookings() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { currentUser } = useContext(AuthContext);
-    const userId = currentUser.uid;
+    const userId = currentUser?.uid;
+
 
 
     useEffect(() => {
@@ -30,38 +28,13 @@ export default function Bookings() {
     }, [userId, dispatch, navigate]);
 
     const handleLogout = () => {
-        auth.signOut();
+        auth.signOut().then(() => {
+            navigate('/login');
+        });
     }
 
     const bookings = useSelector((state) => state.bookings.bookings);
     const loading = useSelector((state) => state.bookings.loading);
-
-
-    // const [authToken, setAuthToken] = useLocalStorage("authToken", "");
-    // const navigate = useNavigate();
-
-    // useEffect(() => {
-    //     if (!authToken) {
-    //         navigate("/login");
-    //     }
-    // }, [authToken, navigate]);
-
-    // const handleLogout = () => {
-    //     setAuthToken("");
-    // };
-
-    // const bookings = useSelector((state) => state.bookings.bookings);
-    // const loading = useSelector((state) => state.bookings.loading);
-    //const dispatch = useDispatch();
-
-    // useEffect(() => {
-    //     const token = localStorage.getItem("authToken");
-    //     if (token) {
-    //         const decodedToken = jwtDecode(token);
-    //         const userId = decodedToken.id;
-    //         dispatch(fetchBookingsByUser(userId));
-    //     }
-    // }, [dispatch]);
 
     return (
         <>
@@ -79,6 +52,12 @@ export default function Bookings() {
                 </Nav>
             </Container>
             <Container>
+                <Row className="p-3" style={{ borderTop: "1px solid #D3D3D3", borderBottom: "1px solid #D3D3D3" }} >
+                    <Col sm={12}>
+                        <h1>Your Profile</h1>
+                        <UserProfile />
+                    </Col>
+                </Row>
                 <Row>
                     <Col>
                         <h1>Your Bookings</h1>
@@ -88,6 +67,7 @@ export default function Bookings() {
                         ))}
                     </Col>
                 </Row>
+
             </Container>
         </>
     );

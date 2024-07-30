@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { getAuth } from "firebase/auth";
 import { Container, Col, Nav } from "react-bootstrap";
 import { useNavigate, Outlet } from "react-router-dom";
@@ -13,9 +13,11 @@ export default function LandingPage() {
     const navigate = useNavigate();
     const { currentUser } = useContext(AuthContext);
 
-    if (!currentUser) {
-        navigate("/login");
-    }
+    useEffect(() => {
+        if (!currentUser) {
+            navigate("/login");
+        }
+    }, [currentUser, navigate]);
 
     const handleLogout = () => {
         auth.signOut();
