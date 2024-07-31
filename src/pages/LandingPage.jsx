@@ -5,6 +5,7 @@ import { useNavigate, Outlet } from "react-router-dom";
 import { AuthContext } from "../components/AuthProvider";
 import Header from "../components/Header";
 import CardItem from "../components/CardItem";
+import GoogleMap from "../components/GoogleMap";
 //import useLocalStorage from "use-local-storage";
 
 
@@ -56,8 +57,8 @@ export default function LandingPage() {
             <Col sm={12}>
                 <Header />
                 <CardItem />
-
             </Col>
+            <GoogleMap />
         </>
     );
 }
