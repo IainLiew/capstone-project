@@ -2,7 +2,7 @@ import { useState } from "react";
 import { APIProvider, Map, AdvancedMarker, InfoWindow } from "@vis.gl/react-google-maps";
 
 export default function GoogleMap() {
-    const position = { lat: 3.1171791042577937, lng: 101.61351693759488 }
+    const position = { lat: 3.1170150910977275, lng: 101.61356778159477 }
     const [open, setOpen] = useState(false);
     const googleMapApi = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
     const mapId = import.meta.env.VITE_MAP_ID;
