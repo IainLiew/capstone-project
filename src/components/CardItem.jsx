@@ -16,7 +16,7 @@ export default function CardItem() {
         <Container className='mt-5 mx-5'>
             <Row>
                 <Col>
-                    <Card style={{ width: '18rem' }}>
+                    <Card style={{ width: '25rem' }}>
                         <Card.Img variant="top" src={item1} />
                         <Card.Body>
                             <Card.Title>Personal Coaching</Card.Title>
@@ -28,7 +28,7 @@ export default function CardItem() {
                     </Card>
                 </Col>
                 <Col>
-                    <Card style={{ width: '18rem' }}>
+                    <Card style={{ width: '25rem' }}>
                         <Card.Img variant="top" src={item2} />
                         <Card.Body>
                             <Card.Title>Strength & Conditioning</Card.Title>
@@ -40,7 +40,7 @@ export default function CardItem() {
                     </Card>
                 </Col>
                 <Col>
-                    <Card style={{ width: '18rem' }}>
+                    <Card style={{ width: '25rem' }}>
                         <Card.Img variant="top" src={item3} />
                         <Card.Body>
                             <Card.Title>Multipurpose Courts</Card.Title>

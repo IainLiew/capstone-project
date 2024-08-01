@@ -4,6 +4,7 @@ import { doc, updateDoc, getDoc } from "firebase/firestore";
 import { useState, useContext, useEffect } from "react";
 import { AuthContext } from "./AuthProvider";
 import { updateProfile } from "firebase/auth";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import { CgProfile } from "react-icons/cg";
 import { FaEdit } from "react-icons/fa";
 import { toast } from "react-toastify";
@@ -104,65 +105,86 @@ export default function UserProfile() {
 
     return (
         <>
-            <input type="file" id="fileInput" className="hidden" onChange={handleImageChange}
-                accept=".jpeg, .png, .jpg" disabled={!changeDetail}
-            />
-            <div className="mt-5"></div>
-            <div className="relative w-40 h-40 rounded-full overflow-hidden cursor-pointer group"
-                onClick={handlePictureUpload}>
-                {imagePreview ? (
-                    <img src={imagePreview} className="w-full h-full object-cover group-hover:opacity-50 transition-opacity duration-300" />
-                ) : currentUser.photoURL ? (
-                    <img src={currentUser.photoURL}
-                        className="w-full h-full object-cover group-hover:opacity-50 transition-opacity duration-300" />
-                ) : (
-                    <CgProfile className="w-full h-full object-cover group-hover:opacity-50 transition-opacity duration-300" />
-                )}
-                {imageChange && uploadProgress > 0 && uploadProgress < 100 && (
-                    <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                        <span className="text-white">{Math.round(uploadProgress)}%</span>
-                    </div>
-                )}
-                {changeDetail &&
-                    <div className="absolute inset-0 flex items-center justify-center bg-gray-700 bg-opacity-0 group-hover:bg-opacity-50 first-letter:transition-opacity duration-300 opacity-0 group-hover:opacity-100">
-                        <span className="text-white text-lg">
-                            Upload Profile Pic
-                        </span>
-                    </div>
-                }
-            </div>
+            <div style={{ backgroundColor: 'white', minHeight: '100vh', color: 'white' }}>
+                <Container>
+                    <Row>
+                        <Col md={6} className="d-flex flex-column align-items-center mt-5 mb-4">
+                            <input
+                                type="file"
+                                id="fileInput"
+                                className="d-none"
+                                onChange={handleImageChange}
+                                accept=".jpeg, .png, .jpg"
+                                disabled={!changeDetail}
+                            />
+                            <div className="d-flex justify-content-center">
+                                <div
+                                    className="position-relative"
+                                    style={{ width: '400px', height: '400px' }}
+                                    onClick={handlePictureUpload}
+                                >
+                                    {imagePreview ?
+                                        <img src={imagePreview} className="w-100 h-100 object-fit-cover" alt="Profile Preview" style={{ padding: '30px' }} />
+                                        : currentUser.photoURL ? (
+                                            <img src={currentUser.photoURL} className="w-100 h-100 object-fit-cover" alt="Profile" style={{ padding: '30px' }} />
+                                        ) : (
+                                            <CgProfile className="w-full h-full object-cover group-hover:opacity-50 transition-opacity duration-300" />
+                                        )
+                                    }
+                                    {imageChange && uploadProgress > 0 && uploadProgress < 100 && (
+                                        <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                                            <span className="text-white">{Math.round(uploadProgress)}%</span>
+                                        </div>
+                                    )}
+                                    {changeDetail && (
+                                        <div className="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-dark bg-opacity-50">
+                                            <span className="text-white fs-5">Upload Profile Pic</span>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
 
-            <div className="w-full md:w-[50%] mt-5 px-3">
-                <form>
-                    <input type="text"
-                        id="username"
-                        value={username}
-                        disabled={!changeDetail}
-                        onChange={editUsername}
-                        className={`w-full px-4 py-2 text-xl text-gray-700 border border-gray-400 
+                            <Container style={{ paddingTop: '20px' }}>
+                                <Row>
+                                    <Col className="d-flex justify-content-center">
+                                        <form>
+                                            <input type="text"
+                                                id="username"
+                                                value={username}
+                                                disabled={!changeDetail}
+                                                onChange={editUsername}
+                                                className={`w-full px-4 py-2 text-xl text-gray-700 border border-gray-400 
           rounded transition ease-in-out mb-5 ${changeDetail && "bg-red-300 focus:bg-red-300"
-                            }`}
-                    />
-                    <input type="email" id="email" value={email} disabled
-                        className="w-full px-4 py-2 text-xl text-gray-700 border 
+                                                    }`}
+                                            />
+                                            <input type="email" id="email" value={email} disabled
+                                                className="w-full px-4 py-2 text-xl text-gray-700 border 
               border-gray-400 rounded transition ease-in-out mb-5"
-                    />
+                                            />
 
-                    <div className="flex justify-between whitespace-nowrap text-sm sm:text-lg mb-6">
-                        <p
-                            onClick={() => {
-                                changeDetail && submitChanges();
-                                setChangeDetail((prevState) => !prevState);
-                            }}
-                            className="flex items-center space-x-1 text-red-500 hover:text-red-700 transition ease-in-out duration-200 cursor-pointer"
-                        >
-                            {changeDetail ? "Apply change" : "Edit profile"} <FaEdit className="ml-2" />
+                                            <div className="flex justify-between whitespace-nowrap text-sm sm:text-lg mb-6">
+                                                <Button
+                                                    onClick={() => {
+                                                        changeDetail && submitChanges();
+                                                        setChangeDetail((prevState) => !prevState);
+                                                    }}
+                                                    className="flex items-center space-x-1 text-red-500 hover:text-red-700 transition ease-in-out duration-200 cursor-pointer"
 
-                        </p>
+                                                >
+                                                    {changeDetail ? "Apply change" : "Edit profile"} <FaEdit className="ml-2" />
 
-                    </div>
-                </form>
+                                                </Button>
+
+                                            </div>
+                                        </form>
+                                    </Col>
+                                </Row>
+                            </Container>
+                        </Col>
+                    </Row>
+                </Container>
             </div>
         </>
     );
 }
+

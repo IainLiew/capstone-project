@@ -1,12 +1,11 @@
 import { useContext, useEffect } from "react";
 import { getAuth } from "firebase/auth";
-import { Container, Col, Nav } from "react-bootstrap";
+import { Container, Col, Nav, Navbar } from "react-bootstrap";
 import { useNavigate, Outlet } from "react-router-dom";
 import { AuthContext } from "../components/AuthProvider";
 import Header from "../components/Header";
 import CardItem from "../components/CardItem";
 import GoogleMap from "../components/GoogleMap";
-//import useLocalStorage from "use-local-storage";
 
 
 export default function LandingPage() {
@@ -24,36 +23,19 @@ export default function LandingPage() {
         auth.signOut();
     }
 
-    // const [authToken, setAuthToken] = useLocalStorage("authToken", "");
-    // const navigate = useNavigate();
-
-    // useEffect(() => {
-    //     if (!authToken) {
-    //         navigate("/login");
-    //     }
-    // }, [authToken, navigate]);
-
-    // const handleLogout = () => {
-    //     setAuthToken("");
-
-    // };
-
     return (
         <>
-            <Container>
-                <Nav className="justify-content-center" activeKey="/home">
-                    <Nav.Item>
+            <Navbar bg="dark" data-bs-theme="dark">
+                <Container>
+                    <Navbar.Brand href="/home">Square One</Navbar.Brand>
+                    <Nav className="me-auto">
                         <Nav.Link href="/landing">Home</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
                         <Nav.Link href="/bookings">Bookings</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
                         <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
-                    </Nav.Item>
-                </Nav>
-                <Outlet />
-            </Container>
+                    </Nav>
+                    <Outlet />
+                </Container>
+            </Navbar>
             <Col sm={12}>
                 <Header />
                 <CardItem />

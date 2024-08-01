@@ -1,4 +1,4 @@
-import { Col, Row, Container, Spinner, Nav } from 'react-bootstrap';
+import { Col, Row, Container, Spinner, Nav, Navbar } from 'react-bootstrap';
 import { getAuth } from 'firebase/auth';
 import { AuthContext } from '../components/AuthProvider';
 import { useDispatch, useSelector } from 'react-redux';
@@ -38,19 +38,16 @@ export default function Bookings() {
 
     return (
         <>
-            <Container>
-                <Nav className="justify-content-center" activeKey="/home">
-                    <Nav.Item>
+            <Navbar bg="dark" data-bs-theme="dark">
+                <Container>
+                    <Navbar.Brand href="/home">Square One</Navbar.Brand>
+                    <Nav className="me-auto">
                         <Nav.Link href="/landing">Home</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
                         <Nav.Link href="/bookings">Bookings</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
                         <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
-                    </Nav.Item>
-                </Nav>
-            </Container>
+                    </Nav>
+                </Container>
+            </Navbar>
             <Container>
                 <Row className="p-3" style={{ borderTop: "1px solid #D3D3D3", borderBottom: "1px solid #D3D3D3" }} >
                     <Col sm={12}>
