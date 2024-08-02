@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { getAuth } from "firebase/auth";
 
-const BASE_URL = "https://666baf44-cc7a-44a2-90fe-3ccea2346593-00-s4tbo6ggvzgy.pike.replit.dev";
+const BASE_URL = "https://capstone-api-lygw.onrender.com";
 
 // Asyncthunk for fetching user's bookings
 export const fetchBookingsByUser = createAsyncThunk(
